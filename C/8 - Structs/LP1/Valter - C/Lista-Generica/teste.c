@@ -94,13 +94,13 @@ int main() {
 
   list = listRemove(list, (void*)"Luiz Dbx", findPersonPerName);
 
-  //   listPrint(list, printPerson);
+  listPrint(list, printPerson);
 
-  //   void* person = listSearch(list, (void*)"Yan Carlos", findPersonPerName);
+  void* person = listSearch(list, (void*)"Yan Carlos", findPersonPerName);
 
-  //   if (person != NULL) printPerson(person);
+  if (person != NULL) printPerson(person);
 
-  //   listMap(list, printPerson, filterPerAge);
+  listMap(list, printPerson, filterPerAge);
 
   int itSaved = listFileSave(list, "./pessoas.csv", writePersonInFile);
 
