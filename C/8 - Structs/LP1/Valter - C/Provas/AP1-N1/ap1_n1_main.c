@@ -1,4 +1,4 @@
-#include "../Lista-Generica/estruturas/lista-generica.c"
+#include "../../Lista-Generica/estruturas/lista-generica.c"
 
 typedef struct {
   char descricao[100];
