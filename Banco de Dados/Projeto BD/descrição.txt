@@ -1,0 +1,26 @@
+Um sistema de e-commerce deseja informatizar suas operações para tornar mais
+eficiente o processo de gerenciamento de produtos e pedidos realizados por
+clientes. Quando um cliente acessa a loja e realiza uma compra, algumas
+informações são armazenadas, como: o nome do cliente, telefone, e-mail e
+endereço completo (incluindo rua, número e cidade). Cada pedido feito por um
+cliente contém um ou mais produtos e deve registrar o valor total da compra,
+o status do pedido (como “em andamento”, “concluído” ou “cancelado”) e a
+identificação do cliente responsável.
+
+No momento da venda, os produtos escolhidos são registrados com a quantidade
+comprada e o subtotal correspondente, vinculando cada produto ao respectivo
+pedido. Todos os produtos possuem informações básicas, como nome, preço,
+descrição e a quantidade disponível em estoque.
+
+Os produtos vendidos pela loja podem ser de dois tipos principais: jogos e
+itens eletrônicos. Para os jogos, é importante armazenar dados como:
+desenvolvedora, data de lançamento e a plataforma na qual o jogo funciona.
+Além disso, um jogo pode estar associado a um ou mais gêneros, como
+“aventura”, “ação”, “estratégia”, entre outros. Já os itens eletrônicos devem
+registrar o nome do fabricante e o tipo do produto, como “fone de ouvido”,
+“mouse” ou “console”.
+
+Dessa forma, o sistema permitirá ao e-commerce registrar com precisão os
+dados de clientes, produtos, pedidos realizados, bem como manter o controle
+detalhado sobre o tipo de produto vendido, seu estoque, e o perfil de cada
+venda realizada.

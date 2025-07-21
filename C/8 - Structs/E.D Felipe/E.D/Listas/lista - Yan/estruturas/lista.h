@@ -24,4 +24,5 @@ void sort(LinkedList *list);
 void printList(LinkedList *list);
 void freeList(LinkedList *list);
 LinkedList *copy(LinkedList *list, const int start, const int end);
+LinkedList *split(LinkedList *list, const int index); 
 #endif

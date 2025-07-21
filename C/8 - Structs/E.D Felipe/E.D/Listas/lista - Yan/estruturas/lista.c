@@ -1,4 +1,5 @@
 #include "./lista.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -189,5 +190,38 @@ LinkedList *copy(LinkedList *list, const int start, const int end) {
 
   LinkedList *newList = initList();
   for (int i = start; i <= end; i++) push(newList, get(list, i)->value);
+  return newList;
+}
+
+LinkedList *split(LinkedList *list, const int index) {
+  // Se for um index inválido não cria uma nova lista
+  if (index < 0 || index >= list->size) return NULL;
+
+  // Inicia Lista
+  LinkedList *newList = initList();
+
+  // Váriavel pra percorrer a lista
+  No *temp = list->head;
+  int i = 0;
+
+  while (i <= index) {
+    // Adiciono todos os numeros até o indice escolhido da lista
+    push(newList, temp->value);
+    temp = temp->next;
+    i++;
+  }
+
+  // Atualizo a nova head da lista
+  list->head = temp;
+
+  // Aq é pq na minha lista tem ponteiro pro final tambem por isso coloquei p atualizar
+  if (list->head == NULL) {
+    list->tail = NULL;
+  }
+
+  // Aq é pq na minha lista tem uma variável pra pegar o tamanho por isso coloquei
+  list->size = list->size - newList->size;
+
+  // Retorno a nova lista
   return newList;
 }
