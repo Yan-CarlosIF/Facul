@@ -16,6 +16,8 @@
 // junto com o total de repetições
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main() {
   char frase[100];
@@ -23,13 +25,13 @@ int main() {
 
   printf("Digite uma frase: ");
   fgets(frase, 100, stdin);
+  const int length = strlen(frase);
 
-  for (int i = 0; frase[i] != '\0'; i++) {
-    if (frase[i] >= 97 && frase[i] <= 122) {
-      frase[i] -= 32;
+  for (int i = 0; i < length; i++) {
+    if (isalpha(frase[i])) {
+      char letra = toupper(frase[i]);
+      hashMap[letra - 65]++;
     }
-
-    hashMap[frase[i] - 65]++;
   }
 
   for (int i = 0; i < 26; i++) {

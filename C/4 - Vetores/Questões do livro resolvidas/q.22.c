@@ -1,107 +1,102 @@
 #include <stdio.h>
-#define conta 10
-int main()
-{
-    int i,cod[conta],vali,cond,codi;
-    float saldo[conta],valor,soma;
-    for (i=0;i<conta;i++)
-    {
-        do 
-        {
-        vali = 0;
-        printf("Insira o codigo da %d conta:",i+1);
-        scanf("%d",&cod[i]);
-        for (int j=0;j<i;j++)
-        {
-            if (cod[i]==cod[j])
-            {
-                vali = 1;
-                break;
-            }
+#define ACCOUNTS 2
+
+int accountExists(int *codes, int size, int code) {
+  if (size == 0) return 0;
+
+  for (int i = 0; i < size; i++) {
+    if (codes[i] == code) return 1;
+  }
+
+  return 0;
+}
+
+int main() {
+  int codes[ACCOUNTS];
+  float balances[ACCOUNTS];
+
+  for (int i = 0; i < ACCOUNTS; i++) {
+    int code;
+    do {
+      printf("Insira o codigo da %d conta:", i + 1);
+      scanf("%d", &code);
+    } while (accountExists(codes, i + 1, code));
+    codes[i] = code;
+
+    printf("Insira o saldo da conta %d:", codes[i]);
+    scanf("%f", &balances[i]);
+  }
+
+  int op;
+
+  do {
+    printf("1. Efetuar deposito\n2. Efetuar saque\n");
+    printf(
+        "3. Consultar o ativo bancário, ou seja, o somatório dos saldos de "
+        "todos os clientes\n");
+    printf("4. Finalizar Programa\n");
+    scanf("%d", &op);
+
+    switch (op) {
+      case 1: {
+        int code;
+        printf("Insira o codigo da conta:");
+        scanf("%d", &code);
+
+        if (!accountExists(codes, ACCOUNTS, code)) {
+          printf("Conta nao encontrada\n");
+          break;
         }
-        if (vali)
-        {
-            printf("\nCodigo inserido ja existente!\n");
+
+        float deposit;
+        printf("Insira o valor do deposito:");
+        scanf("%f", &deposit);
+
+        deposit = deposit < 0 ? deposit * -1 : deposit;
+        int i;
+        for (i = 0; code != codes[i]; i++);
+
+        balances[i] += deposit;
+        break;
+      }
+      case 2: {
+        int code;
+        printf("Insira o codigo da conta:");
+        scanf("%d", &code);
+
+        if (!accountExists(codes, ACCOUNTS, code)) {
+          printf("Conta nao encontrada\n");
+          break;
         }
-        } while (vali);
-        printf("Insira o saldo da conta %d:",cod[i]);
-        scanf("%f",&saldo[i]);
+
+        float withdraw;
+        printf("Insira o valor do saque:");
+        scanf("%f", &withdraw);
+
+        withdraw = withdraw < 0 ? withdraw * -1 : withdraw;
+        int i;
+        for (i = 0; code != codes[i]; i++);
+
+        if (withdraw > balances[i]) {
+          printf("Saldo insuficiente\n");
+          break;
+        }
+
+        balances[i] -= withdraw;
+        break;
+      }
+      case 3: {
+        float sum = 0;
+        for (int i = 0; i < ACCOUNTS; i++) sum += balances[i];
+        printf("somatorio: %.2f\n", sum);
+        break;
+      }
+      case 4:
+        break;
+      default:
+        printf("opção inválida");
     }
-    do
-    {
-        printf("Digite:\n1 - Efetuar deposito\n2 - Efetuar saque\n3 - Consultar o ativo bancario\n4 - Finalizar o programa\n:");
-        scanf("%d",&cond);
-        switch (cond)
-        {
-            case 1:
-                vali = 0;
-                printf("\nVoce escolheu efetuar deposito\n");
-                do{
-                    printf("\nInsira o codigo da conta que deseja depositar:");
-                    scanf("%d",&codi);
-                    for (i=0;i<conta;i++)
-                    {
-                        if (codi==cod[i])
-                        {
-                            vali = 1;
-                            printf("\nInsira o valor do deposito:");
-                            scanf("%f",&valor);
-                            saldo[i]+=valor;
-                            printf("\nO saldo apos o deposito: %.2f\n\n",saldo[i]);
-                            break;
-                        }
-                    }
-                    if(!vali)
-                    {
-                        printf("\nConta nao encontrada!\n");  
-                    }
-                } while (!vali);
-                break;
-            case 2:
-                vali = 0;
-                printf("\nVoce escolheu efetuar saque\n");
-                do
-                {
-                    printf("\nInsira o codigo da conta que deseja sacar:");
-                    scanf("%d",&codi);
-                    for (i=0;i<conta;i++)
-                    {
-                        if (codi==cod[i])
-                        {
-                            vali = 1;
-                            printf("\nInsira o valor que deseja sacar:");
-                            scanf("%f",&valor);
-                            if (saldo[i]>=valor)
-                            {
-                                saldo[i]-=valor;
-                                printf("\nO saldo apos o saque: %.2f\n\n",saldo[i]);
-                            }
-                            else
-                            {
-                                printf("\nSaldo insuficiente!\n\n");
-                            }
-                            break;
-                        }
-                    }
-                    if (!vali)
-                    {
-                        printf("\nConta nao encontrada!\n");   
-                    }
-                } while (!vali);
-                break;
-            case 3:
-                vali = 0;
-                soma = 0;
-                printf("\nVoce escolheu consultar o ativo bancario\n");
-                for (i=0;i<conta;i++)
-                {
-                    soma += saldo[i];
-                }
-                printf("\nO valor do ativo bancario: %.2f\n\n",soma);
-                break;
-            default:;
-        }
-    } while (cond != 4);
-    
-    return 0;
+  } while (op != 4);
+
+  return 0;
 }
