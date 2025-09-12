@@ -1,52 +1,49 @@
 /*
-Faça um programa que receba uma frase e troque a palavra ALUNO por ESTUDANTE e a palavra
-ESCOLA por UNIVERSIDADE.
-Exemplo: EU SOU ALUNO DA ESCOLA
-Saída: EU SOU ESTUDANTE DA UNIVERSIDADE
+Faça um programa que receba uma frase e troque a palavra ALUNO por ESTUDANTE e a
+palavra ESCOLA por UNIVERSIDADE. Exemplo: EU SOU ALUNO DA ESCOLA Saída: EU SOU
+ESTUDANTE DA UNIVERSIDADE
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-void trocaPalavras(char *frase, char *fraseTrocada)
-{
-    char *palavras = strtok(frase, " ,.");
+char *trocaPalavras(char *frase) {
+  char *fraseTrocada = (char *)malloc(200), *palavra;
+  fraseTrocada[0] = '\0';
+  palavra = strtok(frase, " \n");
 
-    while (palavras != NULL)
-    {
-        if (stricmp(palavras, "aluno") == 0)
-        {
-            strcat(fraseTrocada, "Estudante");
-            strcat(fraseTrocada, " ");
-        }
-        else if (stricmp(palavras, "escola") == 0)
-        {
-            strcat(fraseTrocada, "Universidade");
-            strcat(fraseTrocada, " ");
-        }
-        else
-        {
-            strcat(fraseTrocada, palavras);
-            strcat(fraseTrocada, " ");
-        }
-        palavras = strtok(NULL, " ,.");
+  while (palavra != NULL) {
+    if (strcasecmp(palavra, "aluno") == 0) {
+      strcat(fraseTrocada, "ESTUDANTE");
+    } else if (strcasecmp(palavra, "escola") == 0) {
+      strcat(fraseTrocada, "UNIVERSIDADE");
+    } else {
+      strcat(fraseTrocada, palavra);
     }
 
-    if (strlen(fraseTrocada) > 0 && fraseTrocada[strlen(fraseTrocada) - 1] == ' ')
-    {
-        fraseTrocada[strlen(fraseTrocada) - 1] == '\0';
-    }
+    strcat(fraseTrocada, " ");
+    palavra = strtok(NULL, " \n");
+  }
+
+  int fraseSize = strlen(fraseTrocada);
+  if (fraseSize > 0) {
+    fraseTrocada[fraseSize - 1] = '\0';
+  }
+
+  return fraseTrocada;
 }
 
-int main()
-{
-    char frase[100], fraseTrocada[200] = "";
+int main() {
+  char frase[100], *fraseTrocada;
 
-    printf("Digite uma frase:");
-    gets(frase);
+  printf("Digite uma frase:");
+  fgets(frase, 100, stdin);
 
-    trocaPalavras(frase, fraseTrocada);
+  fraseTrocada = trocaPalavras(frase);
 
-    printf("\nFrase: %s", fraseTrocada);
-    return 0;
+  printf("\nFrase: %s", fraseTrocada);
+
+  free(fraseTrocada);
+  return 0;
 }

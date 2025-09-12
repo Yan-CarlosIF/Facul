@@ -1,46 +1,33 @@
-#include <stdio.h>
-#include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
-void isPalindrom(char *palavra)
-{
-    int tam = strlen(palavra);
-    char PalavraInvertida[20];
-    strcpy(PalavraInvertida, palavra);
-
-    for (int i = 0; i < tam / 2; i++)
-    {
-        char aux = PalavraInvertida[i];
-        PalavraInvertida[i] = PalavraInvertida[tam - i - 1];
-        PalavraInvertida[tam - i - 1] = aux;
-    }
-
-    if (strcmp(palavra, PalavraInvertida) == 0)
-    {
-        printf("eh palin");
-    }
-    else
-    {
-        printf("nao eh palin");
-    }
+int len(char *str) {
+  int cont = 0;
+  for (int i = 0; str[i] != '\0'; i++) cont++;
+  return cont;
 }
 
-int main()
-{
-    char palavra[20];
+int isPalindrome(char *str) {
+  int length = len(str);
+  char invertedString[20];
+  strcpy(invertedString, str);
 
-    printf("Digite um palavra:");
-    gets(palavra);
+  for (int i = 0; i < length / 2; i++) {
+    char aux = invertedString[i];
+    invertedString[i] = invertedString[length - i - 1];
+    invertedString[length - i - 1] = aux;
+  }
 
-    isPalindrom(palavra);
+  return stricmp(str, invertedString) == 0;
+}
 
-    if (strcasecmp("OI", "oi") == 0)
-    {
-        printf("São iguais");
-    }
-    else
-    {
-        printf("São diferente");
-    }
+int main() {
+  char str[20];
+
+  printf("Insira uma palavra: ");
+  fgets(str, sizeof(20), stdin);
+
+  printf("\n%s\n", isPalindrome(str) ? "é palindromo" : "não é palindromo");
 }

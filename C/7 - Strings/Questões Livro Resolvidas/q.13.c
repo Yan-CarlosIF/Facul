@@ -10,7 +10,7 @@ Saída: UE UOTSE AN ALOCSE
 
 void invertePalavras(char *str, char *frase) 
 {
-    char *palavras = strtok(str, " ,.");
+    char *palavras = strtok(str, " ,.\n");
 
     while (palavras != NULL)
     {
@@ -24,7 +24,7 @@ void invertePalavras(char *str, char *frase)
         strcat(frase, palavras);
         strcat(frase, " ");
 
-        palavras = strtok(NULL, " ,.");
+        palavras = strtok(NULL, " ,.\n");
     }
 }
 
